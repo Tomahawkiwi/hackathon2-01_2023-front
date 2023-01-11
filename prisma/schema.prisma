@@ -36,7 +36,7 @@ model Car {
   model                   carModel     @relation(fields: [carModelId], references: [id])
   carModelId              String
   engine                  CarEngine 
-  gearbox                 String
+  gearbox                 GearBox
   odometer                Int
   description             String
   mileagePackage          Int
