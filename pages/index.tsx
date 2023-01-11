@@ -4,20 +4,12 @@ import {
   InferGetServerSidePropsType,
 } from "next";
 import prisma from "../prisma/client";
+import Card from "../src/components/Card";
 
 export default function Home({
   cars,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  return (
-    <div>
-      {cars.map((car) => (
-        <div>
-          <div>{car.brand.name}</div>
-          <div>{car.owner.firstname}</div>
-        </div>
-      ))}
-    </div>
-  );
+  return <Card cars={cars} />;
 }
 
 export const getServerSideProps = async (
@@ -26,7 +18,9 @@ export const getServerSideProps = async (
   const cars = await prisma.car.findMany({
     include: {
       owner: true,
+      category: true,
       brand: true,
+      model: true,
     },
   });
 
