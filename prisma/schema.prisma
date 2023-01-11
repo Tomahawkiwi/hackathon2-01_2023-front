@@ -9,3 +9,61 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id String @id @unique @default(uuid())
+  firstname String
+  lastname String
+  birthday DateTime
+  email String @unique
+  password String
+  address String
+  phoneNumber String
+  profilPicture String?
+  drivingLicenseId Int
+  dateOfIssueDrivingLicense DateTime
+  placeOfIssueDrivingLicense String
+
+   
+}
+
+model Car {
+  id String @unique @default(uuid())
+  category String
+  brand String
+  model String
+  engine String
+  gearbox String
+  odometer Int
+  description String
+  mileagePackage Int
+  picture carPicture[]
+  address String
+  latitude Int
+  longitude Int
+  airConditioner Boolean
+  babySeat Boolean
+  bluetoothAudio Boolean
+  smoking Boolean
+  dailyPrice Int
+  isAvailable Boolean
+  comment String
+  registrationCertificate Int
+}
+
+model Rent {
+  id String @unique @default(uuid())
+  start DateTime
+  end DateTime
+}
+
+model carPicture {
+  id String @unique @default(uuid())
+  title String
+  url String
+  description String?
+  car Car @relation(fields: [carId], references: [id])
+  carId String
+}
+
+
