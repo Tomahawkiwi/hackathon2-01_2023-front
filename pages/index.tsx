@@ -11,7 +11,10 @@ export default function Home({
   return (
     <div>
       {cars.map((car) => (
-        <div>{car.owner.firstname}</div>
+        <div>
+          <div>{car.brand.name}</div>
+          <div>{car.owner.firstname}</div>
+        </div>
       ))}
     </div>
   );
@@ -23,6 +26,7 @@ export const getServerSideProps = async (
   const cars = await prisma.car.findMany({
     include: {
       owner: true,
+      brand: true,
     },
   });
 
