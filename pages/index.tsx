@@ -1,10 +1,19 @@
-import React from "react";
-import Homepage from "../src/components/Homepage";
+import React, { useState } from "react";
+import ChooseOption from "../src/components/ChooseOption";
 
 function Index() {
+  const [openOption, setOpenOption] = useState(true);
+
+  const isNew =
+    typeof window !== "undefined" && localStorage.getItem("isNew") !== "false";
+
   return (
-    <div>
-      <Homepage />
+    <div className="bg-primary-blue-gradient h-screen">
+      {openOption && isNew ? (
+        <ChooseOption setOpenOption={setOpenOption} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

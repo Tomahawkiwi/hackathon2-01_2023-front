@@ -20,8 +20,47 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       break;
-    case "POST":
-      res.status(200).json({ message: "POST" });
+    case "PUT":
+      try {
+        const updatedCar = await prisma.car.update({
+          where: {
+            id: id as string,
+          },
+          data: {
+            address: req.body.adress,
+            airConditioner: req.body.airConditioner,
+            babySeat: req.body.babySeat,
+            bluetoothAudio: req.body.bluetoothAudio,
+            brand: req.body.brand,
+            category: req.body.category,
+            comment: req.body.comment,
+            dailyPrice: req.body.dailyPrice,
+            description: req.body.description,
+            engine: req.body.engine,
+            gearbox: req.body.gearbox,
+            carBrandId: req.body.carBrandId,
+            carModelId: req.body.carModelId,
+            categoryId: req.body.categoryId,
+            isAvailable: req.body.isAvailable,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
+            mileagePackage: req.body.mileagePackage,
+            model: req.body.model,
+            nickname: req.body.nickname,
+            odometer: req.body.odometer,
+            owner: req.body.owner,
+            ownerId: req.body.ownerId,
+            picture: req.body.picture,
+            registrationCertificate: req.body.registrationCertificate,
+            rent: req.body.rent,
+            smoking: req.body.smoking,
+          },
+        });
+        res.status(200).json(updatedCar);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+      }
       break;
     case "DELETE":
       try {
