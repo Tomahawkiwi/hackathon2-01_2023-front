@@ -1,38 +1,50 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../prisma/client";
+import prisma from "../../../../prisma/client";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, query } = req;
   const { id } = req.query;
 
-  let carPicture;
-  let deletedCarPicture;
   switch (method) {
     case "GET":
       try {
-        carPicture = await prisma.carPicture.findUniqueOrThrow({
+        const carModel = await prisma.carModel.findUniqueOrThrow({
           where: {
             id: id as string,
           },
         });
-        res.status(200).json(carPicture);
+        res.status(200).json(carModel);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
       }
 
       break;
-    case "POST":
-      res.status(200).json({ message: "POST" });
+
+    case "PUT":
+      try {
+        const updatedModel = await prisma.carModel.update({
+          where: {
+            id: id as string,
+          },
+          data: {
+            name: req.body.name,
+          },
+        });
+        res.status(200).json(updatedModel);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+      }
       break;
     case "DELETE":
       try {
-        deletedCarPicture = await prisma.carPicture.delete({
+        const deletedModel = await prisma.carModel.delete({
           where: {
             id: id as string,
           },
         });
-        res.status(200).json(deletedCarPicture);
+        res.status(200).json(deletedModel);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
