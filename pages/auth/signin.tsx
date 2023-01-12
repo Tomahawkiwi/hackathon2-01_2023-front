@@ -1,7 +1,20 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
+import { useAuth } from "../../src/context/UserContext";
 
-function Signin() {
+export default function Signin() {
+  const { signIn } = useAuth();
+  const [credentials, setCredentails] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCredentails((state) => ({
+      ...state,
+      [e.target.name]: e.target.value,
+    }));
+  };
   return (
     <div className="bg-primary-blue-gradient h-screen relative flex flex-col items-center ">
       <Image
@@ -46,7 +59,10 @@ function Signin() {
                 />
                 <div className="flex flex-col justify-around items-center w-full">
                   <input
+                    onChange={handleChange}
                     type="text"
+                    name="email"
+                    value={credentials.email}
                     placeholder="My email"
                     className="text-left -mb-4"
                   />
@@ -64,7 +80,10 @@ function Signin() {
                 />
                 <div className="flex flex-col justify-around items-center w-full">
                   <input
-                    type="text"
+                    name="password"
+                    onChange={handleChange}
+                    type="password"
+                    value={credentials.password}
                     placeholder="My password"
                     className="text-left -mb-4"
                   />
@@ -75,6 +94,7 @@ function Signin() {
           </div>
           <div className="flex justify-end w-5/6 mt-6">
             <button
+              onClick={() => signIn(credentials)}
               type="button"
               className="bg-primary-blue-gradient rounded-full h-10 w-28 text-white font-bold "
             >
@@ -99,5 +119,3 @@ function Signin() {
     </div>
   );
 }
-
-export default Signin;
