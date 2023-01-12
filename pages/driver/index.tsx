@@ -9,7 +9,7 @@ import EnergyTag from "../../src/components/EnergyTag";
 import PriceTag from "../../src/components/PriceTag";
 import CTA from "../../src/components/CTA";
 
-function index({
+function Driver({
   cars,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
@@ -35,16 +35,15 @@ function index({
   );
 }
 
-export default index;
+export default Driver;
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async () => {
   const cars = await prisma.car.findMany({
     include: {
       brand: true,
       category: true,
       model: true,
+      picture: true,
     },
   });
 

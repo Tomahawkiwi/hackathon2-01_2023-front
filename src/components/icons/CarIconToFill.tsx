@@ -1,23 +1,36 @@
-import Image from "next/image";
 import React from "react";
-import capitalize from "../utils/capitalize";
+import { TCarFull } from "../../types/data";
 
-type Props = { energy: string; isSmallSize: boolean };
+interface IProps {
+  car: TCarFull;
+}
 
-function EnergyTag({ energy, isSmallSize }: Props) {
-  const getIconEnergy = (): string => {
-    if (energy === "GASOLINE" || energy === "DIESEL") {
-      return "/icons/Icon-gas_no-bg.svg";
+function CarIconToFill({ car }: IProps) {
+  const listBadges = [];
+
+  const getListBadges = () => {
+    if (car.smoking === true) {
+      listBadges.push("Icon-smoke.svg");
     }
-    if (energy === "ELECTRIC") {
-      return "/icons/Icon-electric_no-bg.svg";
+    if (car.smoking === false) {
+      listBadges.push("Icon-no-smoke.svg");
     }
-    return "/icons/Icon-hybride_no-bg.svg";
+    if (car.babySeat === false) {
+      listBadges.push("Icon-baby.svg");
+    }
   };
+
+  //     allItems =
+  // [       distribManual: car.gearbox,
+  //         noSmoking:car.,
+  //         smoking: car.,
+  //         babySeat: car.babySeat,
+  //         airConditioner:car.,
+  //         buetoothAudio:car.,]
 
   return (
     <div className="flex items-center">
-      <div
+      {/* <div
         className={`${
           isSmallSize ? "w-[31px] h-[31px]" : "w-[51px] h-[51px]"
         } relative bg-primary-blue-gradient rounded-full`}
@@ -41,9 +54,9 @@ function EnergyTag({ energy, isSmallSize }: Props) {
         } `}
       >
         <p>{capitalize(energy)}</p>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default EnergyTag;
+export default CarIconToFill;
