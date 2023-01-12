@@ -26,9 +26,9 @@ function Connection() {
         height={0}
         className="w-[451px] h-[157px] lg:w-[681px] lg:h-[387px] absolute top-[120px] lg:-top-5"
       />
-      <div className="bg-white rounded-3xl  w-5/6 absolute top-52 pb-6 lg:w-[585px] lg:h-[600px] lg:top-[195px]">
+      <div className="bg-custom-white rounded-3xl  w-5/6 absolute top-52 pb-6 lg:w-[585px] lg:h-[600px] lg:top-[195px]">
         <div className="flex-all-center">
-          <h1 className=" w-full flex justify-center p-6  font-Caveat bg-primary-blue-gradient text-transparent bg-clip-text text-4xl lg:text-5xl lg:pt-14 lg:pb-14">
+          <h1 className=" w-full flex justify-center p-6  font-Caveat bg-primary-blue-gradient text-transparent text-custom-blue-endGrad bg-clip-text text-4xl lg:text-5xl lg:pt-14 lg:pb-14">
             Let&apos;s connect !
           </h1>
 
@@ -82,7 +82,7 @@ function Connection() {
             <button
               onClick={() => signIn(credentials)}
               type="button"
-              className="bg-primary-blue-gradient rounded-full h-10 w-28 text-white font-bold "
+              className="bg-primary-blue-gradient rounded-full h-10 w-28 text-custom-white font-bold "
             >
               Sign in
             </button>
@@ -94,7 +94,7 @@ function Connection() {
             <div className="w-fit p-1 flex items-center align-middle justify-center rounded-full bg-primary-blue-gradient ">
               <button
                 type="button"
-                className="mix-blend-screen px-4 h-8 font-bold color-black rounded-full bg-white"
+                className="mix-blend-screen px-4 h-8 font-bold color-black rounded-full bg-custom-white"
                 onClick={() => router.push("/auth/signup")}
               >
                 Let&apos;s sign up !

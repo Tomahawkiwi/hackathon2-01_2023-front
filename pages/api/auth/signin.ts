@@ -9,7 +9,6 @@ import getSecretKey from "../../../src/utils/auth";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
-  console.log("ICI ON EST");
   switch (method) {
     case "POST":
       try {
