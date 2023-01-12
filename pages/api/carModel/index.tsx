@@ -4,14 +4,16 @@ import prisma from "../../../prisma/client";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
-  let carModel;
-
   switch (method) {
     case "GET":
-      carModel = await prisma.carModel.findMany();
-      res.status(200).json(carModel);
+      try {
+        const carModel = await prisma.carModel.findMany();
+        res.status(200).json(carModel);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+      }
       break;
-
     default:
       res.status(405).end(`Method ${method} Not Allowed`);
   }
