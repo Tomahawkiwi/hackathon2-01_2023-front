@@ -4,20 +4,26 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-function ChooseOption() {
+interface IProps {
+  setOpenOption: (value: boolean) => void;
+}
+
+function ChooseOption({ setOpenOption }: IProps) {
   const router = useRouter();
 
   const handleGoHomepage = () => {
-    router.push("/homepage");
+    localStorage.setItem("isNew", "false");
+    setOpenOption(false);
   };
 
   const handleGoConnection = () => {
+    localStorage.setItem("isNew", "false");
     router.push("/auth/signin");
   };
 
   return (
     <div>
-      <div className="bg-primary-blue-gradient h-screen relative flex flex-col items-center ">
+      <div className=" relative flex flex-col items-center ">
         <Image
           src="/logo/logo-vroom_blanc 1.svg"
           alt="logo de vroom"
