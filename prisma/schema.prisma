@@ -43,8 +43,8 @@ model Car {
   mileagePackage          Int
   picture                 carPicture[]
   address                 String
-  latitude                Int
-  longitude               Int
+  latitude                Float
+  longitude               Float
   airConditioner          Boolean
   babySeat                Boolean
   bluetoothAudio          Boolean

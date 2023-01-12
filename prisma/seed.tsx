@@ -35,7 +35,7 @@ const fakerCarModel = (): carCategory => ({
 });
 
 async function main() {
-  const fakerRounds = 10;
+  const fakerRounds = 1;
   dotenv.config();
   console.log("Seeding...");
   /// --------- Users ---------------
