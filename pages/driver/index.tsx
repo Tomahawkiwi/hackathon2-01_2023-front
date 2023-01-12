@@ -10,43 +10,28 @@ import PriceTag from "../../src/components/PriceTag";
 import CTA from "../../src/components/CTA";
 import CardResultsList from "../../src/components/CardResultsList";
 
-function index({
+function Driver({
   cars,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <div className="bg-custom-dark">
-      <EnergyTag energy={cars[0]?.engine as string} isSmallSize />
-      <EnergyTag energy={cars[1]?.engine as string} isSmallSize={false} />
-      <PriceTag price={cars[0]?.dailyPrice as number} isSmallSize />
-      <PriceTag price={cars[1]?.dailyPrice as number} isSmallSize={false} />
-      <CTA text="Bonjour" color="green" isSmallSize />
-      <CTA text="Bonjour" color="red" isSmallSize={false} />
-      <CTA text="Bonjour jkbvijz obdvj" color="blue" isSmallSize={false} />
-      <CTA
-        text="Bonjour jkbvijz obdvj"
-        color="outlinedWhite"
-        isSmallSize={false}
-      />
-      <CTA
-        text="Bonjour jkbvijz obdvj"
-        color="outlinedBlue"
-        isSmallSize={false}
-      />
+    <div className="w-screen h-screen bg-custom-blue-endGrad flex flex-col justify-center items-center align-middle lg:flex-row-reverse lg:items-start">
+      <div className="w-[91%] h-[250px] rounded-t-[25px] bg-custom-dark -mb-3 lg:h-[80%]">
+        Map
+      </div>
       <CardResultsList cars={cars} />
     </div>
   );
 }
 
-export default index;
+export default Driver;
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async () => {
   const cars = await prisma.car.findMany({
     include: {
       brand: true,
       category: true,
       model: true,
+      picture: true,
     },
   });
 

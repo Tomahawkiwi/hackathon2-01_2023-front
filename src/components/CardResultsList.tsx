@@ -4,24 +4,21 @@ import {
   InferGetServerSidePropsType,
 } from "next";
 import { Car, User } from "@prisma/client";
-import prisma from "../../prisma/client";
 import CardResult from "./CardResult";
+import { TCarFull } from "../types/data";
 
-function CardResultsList({ cars }: any) {
+interface IProps {
+  cars: TCarFull[];
+}
+
+function CardResultsList({ cars }: IProps) {
   return (
-    <div>
-      <div>
-        {cars.map((car: any) => (
-          <div className="border w-1/3">
-            <div>{car.category.name}</div>
-            <div>{car.brand.name}</div>
-            <div>{car.model.name}</div>
-            <div>{car.dailyPrice} €</div>
-            <div>{car.address}</div>
-          </div>
-        ))}
-        <CardResult cars={cars: any} />
-      </div>
+    <div className="w-full">
+      {cars.map((car) => (
+        <div className="flex-x-center w-full">
+          <CardResult key={car.id} car={car} />
+        </div>
+      ))}
     </div>
   );
 }
