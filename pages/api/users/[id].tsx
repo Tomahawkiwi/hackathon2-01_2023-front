@@ -20,9 +20,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       break;
-    case "POST":
-      res.status(200).json({ message: "POST" });
+    case "PUT":
+      try {
+        const updatedUser = await prisma.user.update({
+          where: {
+            id: id as string,
+          },
+          data: {
+            ...req.body,
+          },
+        });
+        res.status(200).json(updatedUser);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+      }
       break;
+
     case "DELETE":
       try {
         const deletedUser = await prisma.user.delete({
