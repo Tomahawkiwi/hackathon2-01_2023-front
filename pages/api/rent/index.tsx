@@ -4,12 +4,12 @@ import prisma from "../../../prisma/client";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
-  let cars;
+  let rent;
 
   switch (method) {
     case "GET":
-      cars = await prisma.car.findMany();
-      res.status(200).json(cars);
+      rent = await prisma.rent.findMany();
+      res.status(200).json(rent);
       break;
 
     default:

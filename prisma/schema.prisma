@@ -29,6 +29,7 @@ model User {
 
 model Car {
   id                      String       @unique @default(uuid())
+  nickname                String
   category                carCategory  @relation(fields: [categoryId], references: [id])
   categoryId              String
   brand                   carBrand     @relation(fields: [carBrandId], references: [id])
@@ -75,19 +76,19 @@ model carPicture {
 
 model carCategory {
   id   String @unique @default(uuid())
-  name String
+  name String @unique
   cars Car[]
 }
 
 model carBrand {
   id   String @unique @default(uuid())
-  name String
+  name String @unique
   cars Car[]
 }
 
 model carModel {
   id   String @unique @default(uuid())
-  name String
+  name String @unique
   cars Car[]
 }
 
