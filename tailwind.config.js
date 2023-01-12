@@ -15,7 +15,7 @@ module.exports = {
       xl: "1280px",
     },
     fontFamily: {
-      publicSans: ["Signika Negative", "sans-serif"],
+      Signika: ["Signika Negative", "sans-serif"],
       Caveat: ["Caveat Brush", "sans-serif"],
     },
     textColor: {

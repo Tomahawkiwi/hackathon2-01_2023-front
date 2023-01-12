@@ -5,8 +5,9 @@ import {
 } from "next";
 import { Car, User } from "@prisma/client";
 import prisma from "../../prisma/client";
+import CardResult from "./CardResult";
 
-function Card({ cars }: any) {
+function CardResultsList({ cars }: any) {
   return (
     <div>
       <div>
@@ -19,9 +20,10 @@ function Card({ cars }: any) {
             <div>{car.address}</div>
           </div>
         ))}
+        <CardResult cars={cars: any} />
       </div>
     </div>
   );
 }
 
-export default Card;
+export default CardResultsList;
