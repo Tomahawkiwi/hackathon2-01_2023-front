@@ -14,6 +14,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(error);
         res.status(500).json({ message: error });
       }
+      break;
+
+    case "POST":
+      try {
+        const newPicture = await prisma.carPicture.create({
+          data: {
+            title: req.body.title,
+            url: req.body.url,
+            description: req.body.description,
+          },
+        });
+        res.status(200).json(newPicture);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+      }
+      break;
 
     default:
       res.status(405).end(`Method ${method} Not Allowed`);
