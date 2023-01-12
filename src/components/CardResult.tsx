@@ -5,7 +5,8 @@ import CTA from "./CTA";
 function CardResult() {
   return (
     <div className="w-91%">
-      <div>
+      CardResult
+      {/* <div>
         <div>
           <div>
             <Image />
@@ -18,7 +19,7 @@ function CardResult() {
           </div>
         </div>
       </div>
-      <CTA text="Go with Misty" />
+      <CTA text="Go with Misty" /> */}
     </div>
   );
 }

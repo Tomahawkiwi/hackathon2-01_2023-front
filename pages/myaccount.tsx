@@ -1,5 +1,6 @@
 import React from "react";
 import { GetServerSidePropsContext } from "next";
+import jwt from "jsonwebtoken";
 import UserProfile from "../src/components/userProfile";
 import prisma from "../prisma/client";
 
