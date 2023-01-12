@@ -6,9 +6,11 @@ import { sign } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../prisma/client";
 import getSecretKey from "../../../src/utils/auth";
+import Cookies from "cookies";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
+  const cookies = new Cookies(req, res, { secure: true });
   switch (method) {
     case "POST":
       try {
@@ -28,8 +30,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         // password match
         const { password: _, ...userWithoutPassword } = logUser;
         const token = sign({ ...userWithoutPassword }, secret);
-        console.log(token);
+
         res.setHeader("Authorization", `Bearer ${token}`);
+        cookies.set("token", `Bearer ${token}`);
 
         return res.status(200).json({
           ...userWithoutPassword,

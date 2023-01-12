@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import ChooseOption from "../src/components/ChooseOption";
 
@@ -14,6 +15,7 @@ function Index() {
       ) : (
         ""
       )}
+      <Link href="/myaccount">My Account</Link>
     </div>
   );
 }

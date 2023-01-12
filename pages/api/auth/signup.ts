@@ -4,10 +4,12 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import getSecretKey from "../../../src/utils/auth";
 import prisma from "../../../prisma/client";
+import Cookies from "cookies";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const { email, password, firstname, lastname } = req.body;
+  const cookies = new Cookies(req, res, { secure: true });
 
   switch (method) {
     case "POST":
@@ -32,6 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
 
         res.setHeader("Authorization", `Bearer ${token}`);
+        cookies.set("token", `Bearer ${token}`);
 
         res.status(200).json(userWithoutPassword);
       } catch (error) {
