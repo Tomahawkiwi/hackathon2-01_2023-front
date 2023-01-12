@@ -17,7 +17,7 @@ function Homepage() {
             <h1 className=" w-full flex justify-center p-6 pt-8 font-Caveat bg-primary-blue-gradient text-transparent bg-clip-text text-4xl lg:text-5xl">
               Welcome vroomer !
             </h1>
-            <div className="flex-all-center w-5/6 m-3 mb-8">
+            <div className="flex-all-center w-5/6 m-3 mb-8 lg:mb-12">
               <p className="text-xs lg:text-base ">
                 <strong className="text-sm lg:text-xl">
                   A trip, a move or just a wish to drive ?
@@ -36,28 +36,28 @@ function Homepage() {
                 Offer to rent it to all the Driving Vroomers.
               </p>
             </div>
-            <div className="bg-primary-blue-gradient flex flex-row justify-around items-center gap-4 rounded-full px-6 py-3 mb-5 w-2/3 h-20">
+            <div className="bg-primary-blue-gradient flex flex-row justify-around items-center gap-4 rounded-full px-6 py-3 mb-5 w-2/3 h-20 lg:w-[291px] lg:h-[110px] ">
               <Image
                 src="/logo/Icon-car.svg"
                 alt="logo de voiture"
                 width={0}
                 height={0}
-                className="w-16 h-11"
+                className="w-16 h-11 lg:w-20 lg:h-14"
               />
-              <p className="font-Caveat text-white">
+              <p className="font-Caveat text-white lg:text-3xl">
                 I need <br />a car !
               </p>
             </div>
-            <div className="p-1 bg-primary-blue-gradient flex flex-row items-center gap-4 rounded-full w-2/3 h-20">
+            <div className="p-1 bg-primary-blue-gradient flex flex-row items-center gap-4 rounded-full w-2/3 h-20 lg:w-[291px] lg:h-[110px]">
               <div className="mix-blend-screen bg-white rounded-full flex justify-around items-center p-1 w-full h-full">
                 <Image
                   src="/logo/Icon-money.svg"
                   alt="logo de voiture"
                   width={0}
                   height={0}
-                  className="w-16 h-11 "
+                  className="w-16 h-11 lg:w-20 lg:h-[70px] "
                 />
-                <p className="font-Caveat">
+                <p className="font-Caveat lg:text-3xl">
                   I propose <br />
                   my car !
                 </p>
