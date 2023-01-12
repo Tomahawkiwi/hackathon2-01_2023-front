@@ -33,10 +33,10 @@ function Connection() {
         height={0}
         className="w-[451px] h-[157px] lg:w-[681px] lg:h-[387px] absolute top-[120px] lg:-top-5"
       />
-      <div className="bg-white rounded-3xl  w-5/6 absolute top-52 pb-6 lg:w-[585px] lg:h-[600px] lg:top-[195px]">
+      <div className="bg-custom-white rounded-3xl  w-5/6 absolute top-52 pb-6 lg:w-[585px] lg:h-[600px] lg:top-[195px]">
         <div className="flex-all-center">
-          <h1 className=" w-full flex justify-center p-6  font-Caveat bg-primary-blue-gradient text-transparent bg-clip-text text-4xl lg:text-5xl lg:pt-14 lg:pb-14">
-            Let&apos;s connect !
+          <h1 className=" w-full flex justify-center p-6  font-Caveat bg-primary-blue-gradient text-transparent text-custom-blue-endGrad bg-clip-text text-4xl lg:text-5xl lg:pt-14 lg:pb-14">
+            Let&apos;s register !
           </h1>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -54,7 +54,7 @@ function Connection() {
                 <div className="flex flex-col justify-around items-center w-full">
                   <input
                     {...register("lastname")}
-                    placeholder="My Lastname"
+                    placeholder="My lastname"
                     className="text-left -mb-4 lg:-mb-2 -ml-5 lg:-ml-16 outline-none"
                   />
                   <div className="w-full h-1 lg:h-2 bg-primary-blue-gradient rounded-full" />
@@ -115,12 +115,12 @@ function Connection() {
               </div>
             </div>
 
-            <div className="flex mt-6 justify-end w-5/6 items-center gap-2 lg:pr-20">
-              <div className="w-fit p-1 flex items-center align-middle justify-center rounded-full bg-primary-blue-gradient ">
+            <div className="flex mt-6 justify-end  items-center gap-2 lg:pr-20 w-full">
+              <div className="w-fit p-1 flex items-end  justify-center rounded-full bg-primary-blue-gradient ">
                 <button
                   type="submit"
                   onClick={() => router.push("/")}
-                  className="mix-blend-screen px-4 h-8 font-bold color-black rounded-full bg-white"
+                  className="mix-blend-screen px-4 h-8 font-bold color-black rounded-full bg-custom-white"
                 >
                   Let&apos;s sign up !
                 </button>
