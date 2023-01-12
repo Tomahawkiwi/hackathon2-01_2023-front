@@ -1,32 +1,12 @@
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next";
-import prisma from "../prisma/client";
-import Card from "../src/components/Card";
+import React from "react";
+import Homepage from "../src/components/Homepage";
 
-export default function Home({
-  cars,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  return <Card cars={cars} />;
+function Index() {
+  return (
+    <div>
+      <Homepage />
+    </div>
+  );
 }
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const cars = await prisma.car.findMany({
-    include: {
-      owner: true,
-      category: true,
-      brand: true,
-      model: true,
-    },
-  });
-
-  return {
-    props: {
-      cars,
-    },
-  };
-};
+export default Index;

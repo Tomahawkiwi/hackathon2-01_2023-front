@@ -9,16 +9,16 @@ function Signin() {
         alt="logo de vroom"
         width={0}
         height={0}
-        className="w-[451px] h-[157px] absolute top-[24px]"
+        className="w-[451px] h-[157px] lg:w-[681px] lg:h-[387px] absolute top-[24px] lg:-top-5"
       />
-      <div className="bg-white rounded-3xl  w-5/6 absolute top-28 pb-6">
+      <div className="bg-white rounded-3xl  w-5/6 absolute top-28 pb-6 lg:w-[585px] lg:h-[625px] lg:top-[195px]">
         <div className="flex-all-center">
-          <h1 className=" w-full flex justify-center p-6  font-Caveat bg-primary-blue-gradient text-transparent bg-clip-text text-4xl">
+          <h1 className=" w-full flex justify-center p-6  font-Caveat bg-primary-blue-gradient text-transparent bg-clip-text text-4xl lg:text-5xl">
             Welcome vroomer !
           </h1>
           <div className="flex-all-center w-5/6 m-3">
-            <p className="text-xs">
-              <strong className="text-sm">
+            <p className="text-xs lg:text-base ">
+              <strong className="text-sm lg:text-xl">
                 A trip, a move or just a wish to drive ?
               </strong>
               <br /> Find and rent your car among all the renting Vroomers’s
@@ -27,8 +27,8 @@ function Signin() {
             <p className="text-4xl mb-2 font-Caveat bg-primary-blue-gradient text-transparent bg-clip-text ">
               /
             </p>
-            <p className="text-xs">
-              <strong className="text-sm">
+            <p className="text-xs lg:text-base">
+              <strong className="text-sm lg:text-xl">
                 Your car is bored of not cruising ?
               </strong>
               <br />
