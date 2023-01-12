@@ -4,9 +4,9 @@ import bcrypt from "bcryptjs";
 /* eslint-disable no-console */
 import { sign } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
+import Cookies from "cookies";
 import prisma from "../../../prisma/client";
 import getSecretKey from "../../../src/utils/auth";
-import Cookies from "cookies";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;

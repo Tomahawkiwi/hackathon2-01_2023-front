@@ -1,12 +1,18 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */ import Image from "next/image";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 
+import Image from "next/image";
 import React, { useState } from "react";
+import { Rent } from "@prisma/client";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useAuth } from "../context/UserContext";
 import MyBookings from "./MyBookings";
 
-function UserProfile() {
+interface IProps {
+  rents: Rent;
+}
+
+function UserProfile({ rents }: any) {
   const { user, isLoading } = useAuth();
 
   const [isPastOpen, setIsPastOpen] = useState(false);
@@ -26,16 +32,16 @@ function UserProfile() {
   };
 
   const date = new Date(user?.birthday as Date).toLocaleDateString();
-  console.log(isLoading);
 
   if (isLoading || !user) return <div>Loading ...</div>;
 
+  console.log(rents);
   return (
     <div className="flex justify-center p-10">
       <div className="w-[80%] flex flex-col items-center space-y-10">
         <div className="space-y-5 w-full ">
           <Image
-            src={user?.profilPicture}
+            src={user?.profilPicture || "/defaultavatar.png"}
             width={100}
             height={100}
             alt="avatar"

@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
 import { NextApiRequest, NextApiResponse } from "next";
+import Cookies from "cookies";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import getSecretKey from "../../../src/utils/auth";
 import prisma from "../../../prisma/client";
-import Cookies from "cookies";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;

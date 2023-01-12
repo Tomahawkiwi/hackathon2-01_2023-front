@@ -1,13 +1,15 @@
 import React from "react";
-import { GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import jwt from "jsonwebtoken";
 import UserProfile from "../src/components/userProfile";
 import prisma from "../prisma/client";
 
-function Myaccount() {
+function Myaccount({
+  rents,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div>
-      <UserProfile />
+      <UserProfile rents={rents} />
     </div>
   );
 }
