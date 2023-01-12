@@ -8,7 +8,6 @@ import prisma from "../../prisma/client";
 import EnergyTag from "../../src/components/EnergyTag";
 import PriceTag from "../../src/components/PriceTag";
 import CTA from "../../src/components/CTA";
-import CardResultsList from "../../src/components/CardResultsList";
 
 function index({
   cars,
@@ -32,7 +31,6 @@ function index({
         color="outlinedBlue"
         isSmallSize={false}
       />
-      <CardResultsList cars={cars} />
     </div>
   );
 }

@@ -53,8 +53,8 @@ function Connection() {
                 />
                 <div className="flex flex-col justify-around items-center w-full">
                   <input
-                    {...register("lastname")}
-                    placeholder="My lastname"
+                    {...register("firstname")}
+                    placeholder="My firstname"
                     className="text-left -mb-4 lg:-mb-2 -ml-5 lg:-ml-16 outline-none"
                   />
                   <div className="w-full h-1 lg:h-2 bg-primary-blue-gradient rounded-full" />
@@ -70,8 +70,8 @@ function Connection() {
                 />
                 <div className="flex flex-col justify-around items-center w-full">
                   <input
-                    {...register("firstname")}
-                    placeholder="My firstname"
+                    {...register("lastname")}
+                    placeholder="My lastname"
                     className="text-left -mb-4 lg:-mb-2 -ml-5 lg:-ml-16 outline-none"
                   />
                   <div className="w-full h-1 lg:h-2 bg-primary-blue-gradient rounded-full" />
@@ -107,6 +107,7 @@ function Connection() {
                 <div className="flex flex-col justify-around items-center w-full">
                   <input
                     {...register("password")}
+                    type="password"
                     placeholder="My password"
                     className="text-left -mb-4 -ml-5 lg:-mb-2 lg:-ml-16  outline-none"
                   />
