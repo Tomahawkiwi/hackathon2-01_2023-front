@@ -1,10 +1,29 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
-function Homepage() {
+interface IProps {
+  setOpenOption: (value: boolean) => void;
+}
+
+function ChooseOption({ setOpenOption }: IProps) {
+  const router = useRouter();
+
+  const handleGoHomepage = () => {
+    localStorage.setItem("isNew", "false");
+    setOpenOption(false);
+  };
+
+  const handleGoConnection = () => {
+    localStorage.setItem("isNew", "false");
+    router.push("/auth/signin");
+  };
+
   return (
     <div>
-      <div className="bg-primary-blue-gradient h-screen relative flex flex-col items-center ">
+      <div className=" relative flex flex-col items-center ">
         <Image
           src="/logo/logo-vroom_blanc 1.svg"
           alt="logo de vroom"
@@ -36,7 +55,10 @@ function Homepage() {
                 Offer to rent it to all the Driving Vroomers.
               </p>
             </div>
-            <div className="bg-primary-blue-gradient flex flex-row justify-around items-center gap-4 rounded-full px-6 py-3 mb-5 w-2/3 h-20 lg:w-[291px] lg:h-[110px] ">
+            <div
+              className="bg-primary-blue-gradient flex flex-row justify-around items-center gap-4 rounded-full px-6 py-3 mb-5 w-2/3 h-20 lg:w-[291px] lg:h-[110px] "
+              onClick={handleGoHomepage}
+            >
               <Image
                 src="/logo/Icon-car.svg"
                 alt="logo de voiture"
@@ -48,7 +70,10 @@ function Homepage() {
                 I need <br />a car !
               </p>
             </div>
-            <div className="p-1 bg-primary-blue-gradient flex flex-row items-center gap-4 rounded-full w-2/3 h-20 lg:w-[291px] lg:h-[110px]">
+            <div
+              className="p-1 bg-primary-blue-gradient flex flex-row items-center gap-4 rounded-full w-2/3 h-20 lg:w-[291px] lg:h-[110px]"
+              onClick={handleGoConnection}
+            >
               <div className="mix-blend-screen bg-white rounded-full flex justify-around items-center p-1 w-full h-full">
                 <Image
                   src="/logo/Icon-money.svg"
@@ -70,4 +95,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default ChooseOption;
