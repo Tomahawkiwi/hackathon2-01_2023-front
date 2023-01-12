@@ -5,28 +5,28 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, query } = req;
   const { id } = req.query;
 
-  let car;
-  let deletedCar;
+  let rent;
+  let deletedRent;
   switch (method) {
     case "GET":
-      car = await prisma.car.findUniqueOrThrow({
+      rent = await prisma.car.findUniqueOrThrow({
         where: {
           id: id as string,
         },
       });
-      res.status(200).json(car);
+      res.status(200).json(rent);
 
       break;
     case "POST":
       res.status(200).json({ message: "POST" });
       break;
     case "DELETE":
-      deletedCar = await prisma.car.delete({
+      deletedRent = await prisma.rent.delete({
         where: {
           id: id as string,
         },
       });
-      res.status(200).json(deletedCar);
+      res.status(200).json(deletedRent);
       break;
     default:
       res.status(405).end(`Method ${method} Not Allowed`);
