@@ -60,7 +60,7 @@ function Connection() {
           <div className="flex justify-end w-5/6 mt-6 lg:w-5/6  lg:pr-20 lg:mb-2">
             <button
               type="button"
-              className="bg-primary-blue-gradient rounded-full h-10 w-28 text-white font-bold "
+              className="bg-primary-blue-gradient rounded-full h-10 w-28 lg:h-12 lg:w-32 text-white font-bold "
             >
               Sign in
             </button>
@@ -72,7 +72,7 @@ function Connection() {
             <div className="w-fit p-1 flex items-center align-middle justify-center rounded-full bg-primary-blue-gradient ">
               <button
                 type="button"
-                className="mix-blend-screen px-4 h-8 font-bold color-black rounded-full bg-white"
+                className="mix-blend-screen px-4 h-8  lg:h-10 lg:w-32 font-bold color-black rounded-full bg-white"
               >
                 Let&apos;s sign up !
               </button>
