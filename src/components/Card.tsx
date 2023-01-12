@@ -17,9 +17,6 @@ function Card({ cars }: any) {
             <div>{car.model.name}</div>
             <div>{car.dailyPrice} €</div>
             <div>{car.address}</div>
-            <div>
-              {car.owner.firstname} {car.owner.lastname}
-            </div>
           </div>
         ))}
       </div>
