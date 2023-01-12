@@ -20,7 +20,7 @@ function CardResultsList({ cars }: any) {
             <div>{car.address}</div>
           </div>
         ))}
-        <CardResult cars={cars: any} />
+        <CardResult cars={cars} />
       </div>
     </div>
   );

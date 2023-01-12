@@ -1,20 +1,15 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
+import { User } from "@prisma/client";
 import { useRouter } from "next/router";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 
-type TUser = {
-  id: string;
-  email: string;
-  name: string;
-  avatar: string;
-  createdAt: string;
-  updatedAt: string;
-};
+type TUser = Omit<User, "password">;
 
 interface IUserContext {
-  user: TUser | null;
+  user: TUser | User | null;
   isAuth: boolean;
+  isLoading: boolean;
   signIn: (credentials: TCredentials) => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -31,6 +26,7 @@ type TCredentials = {
 type AuthState = {
   user: TUser | null;
   isAuth: boolean;
+  isLoading: boolean;
 };
 
 const UserContext = createContext<IUserContext | null>(null);
@@ -40,6 +36,7 @@ function UserContextProvider({ children }: TUserContextProviderProps) {
   const [authState, setAuthState] = useState<AuthState>({
     user: null,
     isAuth: false,
+    isLoading: true,
   });
 
   const signIn = async ({ email, password }: TCredentials) => {
@@ -51,6 +48,7 @@ function UserContextProvider({ children }: TUserContextProviderProps) {
       setAuthState(() => ({
         isAuth: true,
         user: data,
+        isLoading: false,
       }));
       const token = headers.authorization;
       axiosInstance.defaults.headers.common.authorization = token;
@@ -65,17 +63,38 @@ function UserContextProvider({ children }: TUserContextProviderProps) {
     setAuthState({
       user: null,
       isAuth: false,
+      isLoading: false,
     });
     localStorage.removeItem("token");
     axiosInstance.defaults.headers.common.authorization = "";
     router.push("/auth/signin");
   };
 
+  useEffect(() => {
+    setAuthState((state) => ({
+      ...state,
+    }));
+    axiosInstance
+      .post("/auth/me")
+      .then((res) => {
+        setAuthState({
+          user: res.data,
+          isAuth: true,
+          isLoading: false,
+        });
+        if (router.pathname === "/auth/signin") {
+          router.push("/");
+        }
+      })
+      .catch(() => router.push("/auth/signin"));
+  }, []);
+
   return (
     <UserContext.Provider
       value={{
         user: authState.user,
         isAuth: authState.isAuth,
+        isLoading: authState.isLoading,
         signIn,
         signOut,
       }}
