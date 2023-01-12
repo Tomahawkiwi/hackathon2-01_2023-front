@@ -1,10 +1,10 @@
 import React from "react";
-import Homepage from "../src/components/Homepage";
+import ChooseOption from "../src/components/ChooseOption";
 
 function Index() {
   return (
     <div>
-      <Homepage />
+      <ChooseOption />
     </div>
   );
 }
