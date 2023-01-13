@@ -5,6 +5,7 @@ import { TCarFull } from "../types/data";
 import capitalize from "../utils/capitalize";
 import CTA from "./CTA";
 import EnergyTag from "./EnergyTag";
+import CarIconToFill from "./icons/CarIcons";
 import PriceTag from "./PriceTag";
 
 interface IProps {
@@ -13,8 +14,8 @@ interface IProps {
 
 function CardResult({ car }: IProps) {
   return (
-    <div className="w-[91%] flex-x-center">
-      <div className="w-full flex-x-center overflow-hidden rounded-t-[15px] bg-primary-blue-gradient-to-transparent">
+    <div className="w-[91%] flex-x-center mt-4">
+      <div className="w-full flex-x-center overflow-hidden rounded-t-[15px] bg-primary-blue-gradient-to-transparent mb-12">
         <div className="w-[97.5%] mt-[3.5px] h-[300px] relative overflow-hidden rounded-t-[15px] bg-custom-dark">
           {car.picture.length > 0 ? (
             <Image
@@ -62,33 +63,28 @@ function CardResult({ car }: IProps) {
                 <br />
                 {capitalize(car.category.name)}
                 <br />
-                {car.odometer}
+                {car.odometer} km
               </p>
             </div>
 
             <div className="flex">
-              <p className="min-w-[95px] w-1/3 font-Caveat text-custom-blue-endGrad text-2xl text-left">
-                More about me
+              <p className="min-w-[88px] w-1/4 font-Caveat text-custom-blue-endGrad text-2xl text-left my-7 ml-2 flex items-center">
+                More about me:
               </p>
               <div className="w-full flex flew-wrap justify-center">
-                {/* <div>
-                  <Image
-                    src={car.picture[0]!.url}
-                    alt={car.picture[0]!.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div> */}
-                {/* <div>
-                  <Image />
-                </div>
                 <div>
-                  <Image />
-                </div> */}
+                  <CarIconToFill car={car} isSmallSize={false} />
+                </div>
               </div>
             </div>
           </div>
-          <CTA text={`Go with ${car.nickname}`} color="blue" isSmallSize />
+          <div className="w-full flex-x-center">
+            <CTA
+              text={`Go with ${car.nickname}`}
+              color="blue"
+              isSmallSize={false}
+            />
+          </div>
         </div>
       </div>
     </div>
