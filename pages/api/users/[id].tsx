@@ -13,6 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             id: id as string,
           },
         });
+        const { password: removedPassword, ...userWithoutPassword } = user;
         res.status(200).json(user);
       } catch (error) {
         console.log(error);
@@ -30,6 +31,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             ...req.body,
           },
         });
+        const { password: removedPassword, ...userWithoutPassword } =
+          updatedUser;
         res.status(200).json(updatedUser);
       } catch (error) {
         console.log(error);
