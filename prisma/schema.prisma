@@ -9,3 +9,101 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                         String   @id @unique @default(uuid())
+  firstname                  String?
+  lastname                   String?
+  birthday                   DateTime?
+  email                      String   @unique
+  password                   String
+  address                    String?
+  zipCode                    String?
+  phoneNumber                String?
+  profilPicture              String?
+  drivingLicenseId           String?
+  dateOfIssueDrivingLicense  DateTime?
+  placeOfIssueDrivingLicense String?
+  cars                       Car[]
+  rent                       Rent[]
+}
+
+model Car {
+  id                      String       @unique @default(uuid())
+  nickname                String?
+  category                carCategory  @relation(fields: [categoryId], references: [id])
+  categoryId              String
+  brand                   carBrand     @relation(fields: [carBrandId], references: [id])
+  carBrandId              String
+  model                   carModel     @relation(fields: [carModelId], references: [id])
+  carModelId              String
+  engine                  CarEngine
+  gearbox                 GearBox
+  odometer                Int
+  description             String
+  mileagePackage          Int
+  picture                 carPicture[]
+  address                 String
+  latitude                Float
+  longitude               Float
+  airConditioner          Boolean
+  babySeat                Boolean
+  bluetoothAudio          Boolean
+  smoking                 Boolean
+  dailyPrice              Int
+  isAvailable             Boolean
+  comment                 String
+  registrationCertificate String
+  owner                   User         @relation(fields: [ownerId], references: [id])
+  ownerId                 String
+  rent                    Rent[]
+}
+
+model Rent {
+  id     String   @unique @default(uuid())
+  start  DateTime
+  end    DateTime
+  user   User     @relation(fields: [userId], references: [id])
+  userId String
+  car    Car      @relation(fields: [carId], references: [id])
+  carId  String
+}
+
+model carPicture {
+  id          String  @unique @default(uuid())
+  title       String
+  url         String
+  description String?
+  car         Car     @relation(fields: [carId], references: [id])
+  carId       String
+}
+
+model carCategory {
+  id   String @unique @default(uuid())
+  name String @unique
+  cars Car[]
+}
+
+model carBrand {
+  id   String @unique @default(uuid())
+  name String @unique
+  cars Car[]
+}
+
+model carModel {
+  id   String @unique @default(uuid())
+  name String @unique
+  cars Car[]
+}
+
+enum CarEngine {
+  GASOLINE
+  DIESEL
+  HYBRID
+  ELECTRIC
+}
+
+enum GearBox {
+  MANUAL
+  AUTOMATIC
+}
