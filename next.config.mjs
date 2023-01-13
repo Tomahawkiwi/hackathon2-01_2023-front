@@ -18,6 +18,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
+    domains: ["res.cloudinary.com"],
     remotePatterns: [
       {
         protocol: "https",

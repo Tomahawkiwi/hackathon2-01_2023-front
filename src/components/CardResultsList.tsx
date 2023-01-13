@@ -14,11 +14,18 @@ function CardResultsList({ cars }: IProps) {
       </p>
 
       {cars.length > 0 ? (
-        cars.map((car) => (
-          <div className="flex-x-center w-full max-w-[343px] bg-custom-white">
-            <CardResult key={car.id} car={car} />
-          </div>
-        ))
+        cars
+          // .filter((each) =>
+          //   filterEnergy === "NONE" ? each : each.engine === filterEnergy
+          // )
+          // .filter((each) =>
+          //   filterSize === "NONE" ? each : each.category.name === filterSize
+          // )
+          .map((car) => (
+            <div className="flex-x-center w-full max-w-[343px] bg-custom-white">
+              <CardResult key={car.id} car={car} />
+            </div>
+          ))
       ) : (
         <div className="w-[91%] flex-x-center mt-4 mx-auto">
           <div className="w-full flex-x-center overflow-hidden rounded-t-[15px] bg-primary-blue-gradient-to-transparent mb-12">

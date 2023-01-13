@@ -73,7 +73,7 @@ function Filters({
                 No matters
               </option>
               {carCategories.map((category) => (
-                <option value={`${category.name.toUpperCase()}`}>
+                <option value={`${category.name}`}>
                   {capitalize(category.name)}
                 </option>
               ))}
