@@ -47,6 +47,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             id: id as string,
           },
         });
+        const { password: removedPassword, ...userWithoutPassword } =
+          deletedUser;
         res.status(200).json(deletedUser);
       } catch (error) {
         console.log(error);
