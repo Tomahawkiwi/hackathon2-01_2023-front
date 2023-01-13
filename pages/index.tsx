@@ -17,8 +17,8 @@ function Index({
   const [openOption, setOpenOption] = useState(true);
   const [filterEnergy, setFilterEnergy] = useState<string | undefined>("");
   const [filterSize, setFilterSize] = useState<string | undefined>("");
-  const [beginDateFilter, setBeginDateFilter] = useState("");
-  const [endDateFilter, setEndDateFilter] = useState("");
+  const [beginDateFilter, setBeginDateFilter] = useState("NONE");
+  const [endDateFilter, setEndDateFilter] = useState("NONE");
 
   const isNew =
     typeof window !== "undefined" && localStorage.getItem("isNew") !== "false";
@@ -52,7 +52,11 @@ function Index({
         <div className="w-full flex flex-col items-center lg:flex-row-reverse lg:items-start">
           <div className="flex-x-center mb-14">
             <div className="w-[91%] min-w-[343px] max-w-[343px] relative z-20 rounded-[25px] mt-[240px]">
-              <CardResultsList cars={cars} />
+              <CardResultsList
+                cars={cars}
+                // filterEnergy={filterEnergy}
+                // filterSize={filterSize}
+              />
             </div>
             <div className="w-[91%] min-w-[343px] max-w-[343px] h-[360px] absolute z-0 rounded-t-[25px] overflow-hidden bg-custom-white lg:h-[80%]">
               <Map cars={cars} />
