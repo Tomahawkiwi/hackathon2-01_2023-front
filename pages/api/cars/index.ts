@@ -18,11 +18,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case "POST":
       try {
+        const { carId } = req.body;
         const newPicture = await prisma.carPicture.create({
           data: {
             title: req.body.title,
             url: req.body.url,
             description: req.body.description,
+            car: {
+              connect: { id: carId },
+            },
           },
         });
         res.status(200).json(newPicture);
