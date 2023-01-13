@@ -26,7 +26,9 @@ function Index({
   return (
     <div className="bg-primary-blue-gradient h-screen">
       {openOption && isNew ? (
-        <ChooseOption setOpenOption={setOpenOption} />
+        <div className="h-screen w-screen fixed opacity-[97%] bg-custom-dark z-40">
+          <ChooseOption setOpenOption={setOpenOption} />
+        </div>
       ) : (
         ""
       )}
