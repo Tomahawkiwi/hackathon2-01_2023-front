@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../../prisma/client";
+import prisma from "../../../prisma/client";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, query } = req;
@@ -8,22 +8,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const carModel = await prisma.carModel.findUniqueOrThrow({
+        const carBrand = await prisma.carBrand.findUniqueOrThrow({
           where: {
             id: id as string,
           },
         });
-        res.status(200).json(carModel);
+        res.status(200).json(carBrand);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
       }
-
       break;
 
     case "PUT":
       try {
-        const updatedModel = await prisma.carModel.update({
+        const updatedCar = await prisma.carBrand.update({
           where: {
             id: id as string,
           },
@@ -31,7 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             name: req.body.name,
           },
         });
-        res.status(200).json(updatedModel);
+        res.status(200).json(updatedCar);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
@@ -39,12 +38,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case "DELETE":
       try {
-        const deletedModel = await prisma.carModel.delete({
+        const deletedBrand = await prisma.carBrand.delete({
           where: {
             id: id as string,
           },
         });
-        res.status(200).json(deletedModel);
+        res.status(200).json(deletedBrand);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });

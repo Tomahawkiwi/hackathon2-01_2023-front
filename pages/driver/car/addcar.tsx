@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+// eslint-disable-next-line import/order
+import axiosInstance from "../../../src/utils/axiosInstance";
+import { FieldValues, useForm } from "react-hook-form";
+import { carBrand, carCategory, carModel } from "@prisma/client";
 
 function Addcar() {
+  const ref = useRef<HTMLInputElement>(null);
   const [smoke, setSmoke] = useState(false);
   const [babySeat, setBabySeat] = useState(false);
-  const [manual, setManual] = useState(false);
-  const [automatic, setAutomatic] = useState(false);
   const [airCon, setAirCon] = useState(false);
-  const [musique, setMusique] = useState(false);
+  const [music, setMusic] = useState(false);
+  const [models, setModels] = useState<carModel[]>([]);
+  const [categories, setCategories] = useState<carCategory[]>([]);
+  const [brands, setBrands] = useState<carBrand[]>([]);
+  const { register, handleSubmit } = useForm();
+  const [image, setImage] = useState<File | null>();
 
   const handleClickSmoke = () => {
     setSmoke(!smoke);
@@ -15,18 +26,51 @@ function Addcar() {
   const handleClickBabySeat = () => {
     setBabySeat(!babySeat);
   };
-  const handleClickManual = () => {
-    setManual(!manual);
-  };
-  const handleClickAutomatic = () => {
-    setAutomatic(!automatic);
-  };
+
   const handleClickAirCon = () => {
     setAirCon(!airCon);
   };
   const handleClickMusique = () => {
-    setMusique(!musique);
+    setMusic(!music);
   };
+
+  const onSubmit = async (data: FieldValues) => {
+    const formData = new FormData();
+
+    formData.append("files", image as File);
+    formData.append("smoke", smoke ? "true" : "false");
+    formData.append("babySeat", babySeat ? "true" : "false");
+    formData.append("aircon", airCon ? "true" : "false");
+    formData.append("music", music ? "true" : "false");
+    formData.append("model", data.model);
+    formData.append("brand", data.brand);
+    formData.append("category", data.category);
+
+    const res = await axiosInstance.post("/cars", formData);
+  };
+
+  const getModels = async () => {
+    const { data } = await axiosInstance.get("/models");
+
+    setModels(data);
+  };
+
+  const getBrand = async () => {
+    const { data } = await axiosInstance.get("/brands");
+
+    setBrands(data);
+  };
+  const getCategories = async () => {
+    const { data } = await axiosInstance.get("/categories");
+
+    setCategories(data);
+  };
+
+  useEffect(() => {
+    getModels();
+    getBrand();
+    getCategories();
+  }, []);
 
   return (
     <div className="bg-custom-blue-endGrad  flex-x-center p-6">
@@ -53,7 +97,10 @@ function Addcar() {
           Return to my cars
         </button>
       </div>
-      <div className="bg-error-red-gradient w-full h-[297px] rounded-t-xl flex-all-center mt-3 ">
+      <div
+        onClick={() => ref.current!.click()}
+        className="bg-error-red-gradient w-full h-[297px] rounded-t-xl flex-all-center mt-3 "
+      >
         <Image
           src="/logo/upload3files.svg"
           alt="logo entreprise"
@@ -62,44 +109,77 @@ function Addcar() {
           className="h-[145px] w-[145px]"
         />
       </div>
+      <input
+        className="hidden"
+        ref={ref}
+        onChange={(e) => setImage(e.target.files![0]!)}
+        type="file"
+      />
       <div className="bg-custom-white w-full">
         <div className=" flex-all-center my-4">
           <div className="flex items-center justify-around w-full">
             <p className="font-semibold my-2">Is available for rent ?</p>
             <label className="switch" htmlFor="showAvailable">
-              <input type="checkbox" id="showAvailable" />
+              <input
+                {...register("isAvailable")}
+                type="checkbox"
+                id="showAvailable"
+              />
               <span className="slider round" />
             </label>
           </div>
           <div className="space-y-2  my-4  w-5/6 ">
             <div className="flex items-center justify-between w-full">
               <p>Nickname : </p>
-              <input type="text" className="box" />
+              <input {...register("nickname")} type="text" className="box" />
             </div>
             <div className="flex items-center justify-between w-full">
               <p>Model : </p>
-              <input type="text" className="box" />
+              <select {...register("model")} name="model" id="">
+                <option value="">Select a model</option>
+                {models.map((model) => (
+                  <option value={model.id}>{model.name}</option>
+                ))}
+              </select>
             </div>
             <div className="flex items-center justify-between w-full">
               <p>Brand : </p>
-              <select className="box">
-                <option value="">e</option>
+              <select {...register("brand")} name="brand" id="">
+                <option value="">Select a brand</option>
+                {brands.map((brand) => (
+                  <option value={brand.id}>{brand.name}</option>
+                ))}
               </select>
             </div>
             <div className="flex items-center justify-between w-full">
               <p>Age :</p>
-              <input type="text" className="box" />
+              <input {...register("age")} type="text" className="box" />
             </div>
             <div className="flex items-center justify-between w-full">
               <p>Size : </p>
-              <select className="box">
-                <option value="">e</option>
+              <select {...register("category")} className="box">
+                <option value="">Select a size</option>
+                {categories.map((cat) => (
+                  <option value={cat.id}>{cat.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <p>Gearbox : </p>
+              <select {...register("gearbox")} className="box">
+                <option value="">Select a gearbox</option>
+                <option value="AUTOMATIC">Automatic</option>
+                <option value="MANUAL">Manual</option>
               </select>
             </div>
             <div className="flex items-center justify-between w-full">
               <p>Engine :</p>
-              <select className="box">
-                <option value="">e</option>
+              <select {...register("engine")} className="box">
+                <option value="">Select an engine type</option>
+                <option value="ELECTRIC">Electric</option>
+                <option value="DIESEL">Diesel</option>
+                <option value="GASOLINE">Gasoline</option>
+                <option value="HYBRID">Hbvrid</option>
               </select>
             </div>
             <div className="space-y-4">
@@ -107,6 +187,7 @@ function Addcar() {
                 More about it !
               </p>
               <textarea
+                {...register("description")}
                 placeholder=""
                 name=""
                 id=""
@@ -143,36 +224,8 @@ function Addcar() {
 
               <button
                 type="button"
-                onClick={handleClickAutomatic}
-                className={automatic ? "opacity-25" : ""}
-              >
-                <Image
-                  src="/icons/Icon-gearbox-auto.svg"
-                  alt="pictograme"
-                  width={10}
-                  height={10}
-                  className="h-14 w-14 ml-2 mb-2"
-                />{" "}
-              </button>
-
-              <button
-                type="button"
-                onClick={handleClickManual}
-                className={manual ? "opacity-25" : ""}
-              >
-                <Image
-                  src="/icons/Icon-gearbox-manual.svg"
-                  alt="pictograme"
-                  width={10}
-                  height={10}
-                  className="h-14 w-14 ml-2 mb-2"
-                />{" "}
-              </button>
-
-              <button
-                type="button"
                 onClick={handleClickMusique}
-                className={musique ? "opacity-25" : ""}
+                className={music ? "opacity-25" : ""}
               >
                 <Image
                   src="/icons/Icon-music.svg"
@@ -200,6 +253,9 @@ function Addcar() {
           </div>
         </div>
       </div>
+      <button type="button" onClick={handleSubmit(onSubmit)}>
+        SUBMIT
+      </button>
     </div>
   );
 }
