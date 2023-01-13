@@ -1,12 +1,15 @@
 import { Car, Rent } from "@prisma/client";
-import Image from "next/image";
+
 import React from "react";
 
 interface IProps {
   rents: Rent[] | undefined;
   cars: Car[] | undefined;
+  isPastOpen: Boolean;
+  isCurrentOpen: Boolean;
+  isFutureOpen: Boolean;
 }
-function MyBookings({ rents, cars }: IProps) {
+function PastBookings({ rents }: IProps) {
   const dateTime = new Date();
 
   const past: Array<object> = [];
@@ -26,7 +29,9 @@ function MyBookings({ rents, cars }: IProps) {
     return 0;
   });
 
-  const arrPeriodOfRent = [];
+  console.log(rents);
+
+  const arrPeriodOfRent: Array<any> = [];
   const arrTimeOfRent = [];
 
   rents?.map((rent) => arrPeriodOfRent.push([rent.start, rent.end, rent.id]));
@@ -35,23 +40,19 @@ function MyBookings({ rents, cars }: IProps) {
     arrTimeOfRent.push((period[1] - period[0]) / 86400000, period[2])
   );
 
-  console.log(arrTimeOfRent);
-  // console.log((rents[0].end - rents[0].start) / 86400000);
-
   return (
     <div className="">
       {past.map((rent) => (
         <div className="flex">
-          <div className="border ">
-            <p>{rent.car.nickname}</p>
-            <p>{rent.car.categoryId}</p>
-            <p>{rent.car.carBrandId}</p>
+          <div className="">
+            <p className="font-Caveat  text-[24px] text-custom-red py-2">
+              {rent.car.nickname}
+            </p>
           </div>
-          <div className="border w-1/3">{rent.car.ownerId}</div>
         </div>
       ))}
     </div>
   );
 }
 
-export default MyBookings;
+export default PastBookings;
