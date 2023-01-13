@@ -3,16 +3,20 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import { Rent } from "@prisma/client";
+import { Car, Rent } from "@prisma/client";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useAuth } from "../context/UserContext";
 import MyBookings from "./MyBookings";
 
 interface IProps {
-  rents: Rent;
+  rents: Rent[] | undefined;
 }
 
-function UserProfile({ rents }: any) {
+type TRentFull = Rent & {
+  car: Car;
+};
+
+function UserProfile({ rents }: IProps) {
   const { user, isLoading } = useAuth();
 
   const [isPastOpen, setIsPastOpen] = useState(false);
@@ -35,7 +39,12 @@ function UserProfile({ rents }: any) {
 
   if (isLoading || !user) return <div>Loading ...</div>;
 
-  console.log(rents);
+  // console.log(
+  //   rents[0].car.nickname,
+  //   dateTime,
+  //   rents[0]?.end.toLocaleDateString()
+  // );
+
   return (
     <div className="flex justify-center p-10">
       <div className="w-[80%] flex flex-col items-center space-y-10">
@@ -59,6 +68,9 @@ function UserProfile({ rents }: any) {
           <div className="flex justify-between">
             <p className="font-semibold text-[18px]">Address: </p>
             <p className="text-[18px]">{user.address}</p>
+          </div>
+          <div className="flex justify-between">
+            <p className="text-[18px]">64100 Bayonne</p>
           </div>
           <div className="flex justify-between">
             <p className="font-semibold text-[18px]">Email:</p>
@@ -115,7 +127,7 @@ function UserProfile({ rents }: any) {
               />
             )}
           </div>
-          {isPastOpen && <MyBookings />}
+          {isPastOpen && <MyBookings rents={rents} />}
 
           <div
             className="flex  w-[60%] justify-between border-4 rounded-full p-2"

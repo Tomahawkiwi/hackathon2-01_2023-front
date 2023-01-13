@@ -35,7 +35,10 @@ export const getServerSideProps = async (
   }
 
   const rents = await prisma.rent.findMany({
-    where: { id: user.id },
+    where: { userId: user.id },
+    include: {
+      car: true,
+    },
   });
 
   return {
