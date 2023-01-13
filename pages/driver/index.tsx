@@ -1,36 +1,45 @@
-import React from "react";
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next";
+import React, { useState } from "react";
+import { InferGetServerSidePropsType } from "next";
+import Image from "next/image";
+import Filters from "../../src/components/filters/Filters";
 import prisma from "../../prisma/client";
-import EnergyTag from "../../src/components/EnergyTag";
-import PriceTag from "../../src/components/PriceTag";
-import CTA from "../../src/components/CTA";
+
+import CardResultsList from "../../src/components/CardResultsList";
+import Map from "../../src/components/map/Map";
 
 function Driver({
   cars,
+  carCategories,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [filterEnergy, setFilterEnergy] = useState<string | undefined>("");
+  const [filterSize, setFilterSize] = useState<string | undefined>("");
+
   return (
-    <div className="bg-custom-dark">
-      <EnergyTag energy={cars[0]?.engine as string} isSmallSize />
-      <EnergyTag energy={cars[1]?.engine as string} isSmallSize={false} />
-      <PriceTag price={cars[0]?.dailyPrice as number} isSmallSize />
-      <PriceTag price={cars[1]?.dailyPrice as number} isSmallSize={false} />
-      <CTA text="Bonjour" color="green" isSmallSize />
-      <CTA text="Bonjour" color="red" isSmallSize={false} />
-      <CTA text="Bonjour jkbvijz obdvj" color="blue" isSmallSize={false} />
-      <CTA
-        text="Bonjour jkbvijz obdvj"
-        color="outlinedWhite"
-        isSmallSize={false}
+    <div className="w-full bg-custom-blue-endGrad flex-x-center">
+      <div className="relative w-[250px] h-[88px] mt-10 mb-10">
+        <Image
+          src="/logos/logo-vroom_blanc_resized.svg"
+          alt="Logo Vroom"
+          fill
+          className="object-cover"
+        />
+      </div>
+      <Filters
+        setFilterEnergy={setFilterEnergy}
+        setFilterSize={setFilterSize}
+        carCategories={carCategories}
       />
-      <CTA
-        text="Bonjour jkbvijz obdvj"
-        color="outlinedBlue"
-        isSmallSize={false}
-      />
+
+      <div className="w-full flex flex-col items-center lg:flex-row-reverse lg:items-start">
+        <div className="flex-x-center mb-14">
+          <div className="w-[91%] min-w-[343px] max-w-[343px] relative z-20 rounded-[25px] mt-[240px]">
+            <CardResultsList cars={cars} />
+          </div>
+          <div className="w-[91%] min-w-[343px] max-w-[343px] h-[360px] absolute z-0 rounded-t-[25px] overflow-hidden bg-custom-white lg:h-[80%]">
+            <Map cars={cars} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -46,10 +55,12 @@ export const getServerSideProps = async () => {
       picture: true,
     },
   });
+  const carCategories = await prisma.carCategory.findMany();
 
   return {
     props: {
       cars,
+      carCategories,
     },
   };
 };
