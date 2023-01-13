@@ -44,7 +44,7 @@ function CardResult({ car }: IProps) {
         <div className="w-[97.5%] bg-custom-white px-5">
           <div className="flex-x-center">
             <p className="font-Caveat font-regular text-4xl text-custom-blue-endGrad mt-4">
-              {capitalize(car.nickname!)}
+              {capitalize(car.nickname! || "")}
             </p>
             <div className="flex mt-5">
               <p className="text-left text-lg font-semibold mr-5">
