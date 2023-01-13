@@ -22,6 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             carId: req.body.carId,
             start: req.body.start,
             end: req.body.end,
+            numberOfDays: (req.body.start - req.body.end) / 86400000,
           },
         });
         res.status(200).json(newRent);

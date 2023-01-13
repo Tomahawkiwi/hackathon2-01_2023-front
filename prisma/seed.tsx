@@ -19,6 +19,7 @@ const fakerUser = (): User => ({
   email: faker.internet.email(),
   password: faker.internet.password(),
   address: faker.address.streetAddress(),
+  zipCode: faker.address.zipCode(),
   phoneNumber: faker.phone.number(),
   profilPicture: faker.image.avatar(),
   drivingLicenseId: faker.vehicle.vrm(),

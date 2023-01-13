@@ -6,10 +6,11 @@ import prisma from "../prisma/client";
 
 function Myaccount({
   rents,
+  cars,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div>
-      <UserProfile rents={rents} />
+      <UserProfile rents={rents} cars={cars} />
     </div>
   );
 }
