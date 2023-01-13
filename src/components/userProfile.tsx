@@ -6,10 +6,11 @@ import React, { useState } from "react";
 import { Car, Rent } from "@prisma/client";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useAuth } from "../context/UserContext";
-import MyBookings from "./MyBookings";
+import PastBookings from "./pastBookings";
 
 interface IProps {
   rents: Rent[] | undefined;
+  cars: Car[] | undefined;
 }
 
 type TRentFull = Rent & {
@@ -39,12 +40,6 @@ function UserProfile({ rents }: IProps) {
 
   if (isLoading || !user) return <div>Loading ...</div>;
 
-  // console.log(
-  //   rents[0].car.nickname,
-  //   dateTime,
-  //   rents[0]?.end.toLocaleDateString()
-  // );
-
   return (
     <div className="flex justify-center p-10">
       <div className="w-[80%] flex flex-col items-center space-y-10">
@@ -63,26 +58,27 @@ function UserProfile({ rents }: IProps) {
           </h3>
           <div className="flex justify-between">
             <p className="font-semibold text-[18px]">Birthday:</p>
-            <p className="text-[18px]">{date}</p>
+            <p className="text-[18px] w-1/3 text-left">{date}</p>
           </div>
           <div className="flex justify-between">
             <p className="font-semibold text-[18px]">Address: </p>
-            <p className="text-[18px]">{user.address}</p>
+            <p className="text-[18px] w-1/3 text-left">{user.address}</p>
           </div>
           <div className="flex justify-between">
-            <p className="text-[18px]">64100 Bayonne</p>
+            <p> </p>
+            <p className="text-[18px]  w-1/3 text-left">{user.zipCode}</p>
           </div>
           <div className="flex justify-between">
             <p className="font-semibold text-[18px]">Email:</p>
-            <p className="text-[18px]">{user?.email}</p>
+            <p className="text-[18px] w-1/3 text-left">{user?.email}</p>
           </div>
           <div className="flex justify-between">
             <p className="font-semibold text-[18px]">Phone:</p>
-            <p className="text-[18px]"> {user.phoneNumber}</p>
+            <p className="text-[18px] w-1/3 text-left"> {user.phoneNumber}</p>
           </div>
           <div className="flex justify-between  items-center">
             <p className="font-semibold text-[18px]">Driving License:</p>
-            <div className="w-[45%]">
+            <div className="w-[35%]">
               <div className="flex flex-col items-center">
                 <Image
                   src="/logo/Icon-ok.png"
@@ -127,7 +123,7 @@ function UserProfile({ rents }: IProps) {
               />
             )}
           </div>
-          {isPastOpen && <MyBookings rents={rents} />}
+          {isPastOpen && <PastBookings rents={rents} />}
 
           <div
             className="flex  w-[60%] justify-between border-4 rounded-full p-2"
@@ -151,7 +147,7 @@ function UserProfile({ rents }: IProps) {
               />
             )}
           </div>
-          {isCurrentOpen && <div className="border-b">CONTENT</div>}
+          {isCurrentOpen && <div className="border-b"></div>}
           <div
             className="flex  w-[60%] justify-between border-4 rounded-full p-2"
             onClick={handleClickFuture}
@@ -176,7 +172,7 @@ function UserProfile({ rents }: IProps) {
               />
             )}
           </div>
-          {isFutureOpen && <div className="border-b">CONTENT</div>}
+          {isFutureOpen && <div className="border-b"></div>}
 
           <button
             type="button"

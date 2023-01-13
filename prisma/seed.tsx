@@ -18,6 +18,7 @@ const fakerUser = (): User => ({
   birthday: faker.date.birthdate(),
   email: faker.internet.email(),
   password: faker.internet.password(),
+  zipCode: faker.address.buildingNumber(),
   address: faker.address.streetAddress(),
   zipCode: faker.address.zipCode(),
   phoneNumber: faker.phone.number(),

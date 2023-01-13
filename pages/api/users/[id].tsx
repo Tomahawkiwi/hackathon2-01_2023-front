@@ -13,7 +13,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             id: id as string,
           },
         });
-        res.status(200).json(user);
+        const { password: removedPassword, ...userWithoutPassword } = user;
+        res.status(200).json(userWithoutPassword);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
@@ -30,7 +31,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             ...req.body,
           },
         });
-        res.status(200).json(updatedUser);
+        const { password: removedPassword, ...userWithoutPassword } =
+          updatedUser;
+        res.status(200).json(userWithoutPassword);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
@@ -44,7 +47,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             id: id as string,
           },
         });
-        res.status(200).json(deletedUser);
+        const { password: removedPassword, ...userWithoutPassword } =
+          deletedUser;
+        res.status(200).json(userWithoutPassword);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
