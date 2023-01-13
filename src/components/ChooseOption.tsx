@@ -23,7 +23,7 @@ function ChooseOption({ setOpenOption }: IProps) {
   };
 
   return (
-    <div>
+    <div className="z-40">
       <div className=" relative flex flex-col items-center ">
         <Image
           src="/logo/logo-vroom_blanc 1.svg"
