@@ -18,6 +18,7 @@ model User {
   email                      String   @unique
   password                   String
   address                    String?
+  zipCode                    String?
   phoneNumber                String?
   profilPicture              String?
   drivingLicenseId           String?

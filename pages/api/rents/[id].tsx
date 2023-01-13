@@ -8,13 +8,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const user = await prisma.user.findUniqueOrThrow({
+        const rent = await prisma.car.findUniqueOrThrow({
           where: {
             id: id as string,
           },
         });
-        const { password: removedPassword, ...userWithoutPassword } = user;
-        res.status(200).json(userWithoutPassword);
+        res.status(200).json(rent);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
@@ -23,33 +22,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case "PUT":
       try {
-        const updatedUser = await prisma.user.update({
+        const updatedRent = await prisma.rent.update({
           where: {
             id: id as string,
           },
           data: {
-            ...req.body,
+            carId: req.body.carId,
+            userId: req.body.userId,
+            start: req.body.start,
+            end: req.body.end,
           },
         });
-        const { password: removedPassword, ...userWithoutPassword } =
-          updatedUser;
-        res.status(200).json(userWithoutPassword);
+        res.status(200).json(updatedRent);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
       }
       break;
-
     case "DELETE":
       try {
-        const deletedUser = await prisma.user.delete({
+        const deletedRent = await prisma.rent.delete({
           where: {
             id: id as string,
           },
         });
-        const { password: removedPassword, ...userWithoutPassword } =
-          deletedUser;
-        res.status(200).json(userWithoutPassword);
+        res.status(200).json(deletedRent);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });

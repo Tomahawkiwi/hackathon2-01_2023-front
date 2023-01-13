@@ -7,35 +7,30 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const cars = await prisma.car.findMany();
-        res.status(200).json(cars);
-        break;
+        const rent = await prisma.rent.findMany();
+        res.status(200).json(rent);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
       }
       break;
-
     case "POST":
       try {
-        const { carId } = req.body;
-        const newPicture = await prisma.carPicture.create({
+        const newRent = await prisma.rent.create({
           data: {
-            title: req.body.title,
-            url: req.body.url,
-            description: req.body.description,
-            car: {
-              connect: { id: carId },
-            },
+            userId: req.body.userId,
+            carId: req.body.carId,
+            start: req.body.start,
+            end: req.body.end,
+            numberOfDays: (req.body.start - req.body.end) / 86400000,
           },
         });
-        res.status(200).json(newPicture);
+        res.status(200).json(newRent);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
       }
       break;
-
     default:
       res.status(405).end(`Method ${method} Not Allowed`);
   }

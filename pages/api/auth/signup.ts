@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import { NextApiRequest, NextApiResponse } from "next";
+import Cookies from "cookies";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import getSecretKey from "../../../src/utils/auth";
@@ -7,7 +8,8 @@ import prisma from "../../../prisma/client";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
-  const { email, password } = req.body;
+  const { email, password, firstname, lastname } = req.body;
+  const cookies = new Cookies(req, res, { secure: true });
 
   switch (method) {
     case "POST":
@@ -16,6 +18,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const newUser = await prisma.user.create({
           data: {
+            firstname,
+            lastname,
             email,
             password: hashedPassword,
           },
@@ -30,6 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
 
         res.setHeader("Authorization", `Bearer ${token}`);
+        cookies.set("token", `Bearer ${token}`);
 
         res.status(200).json(userWithoutPassword);
       } catch (error) {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../prisma/client";
+import prisma from "../../../../prisma/client";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, query } = req;
@@ -8,48 +8,42 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const user = await prisma.user.findUniqueOrThrow({
+        const carBrand = await prisma.carBrand.findUniqueOrThrow({
           where: {
             id: id as string,
           },
         });
-        const { password: removedPassword, ...userWithoutPassword } = user;
-        res.status(200).json(userWithoutPassword);
+        res.status(200).json(carBrand);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
       }
-
       break;
+
     case "PUT":
       try {
-        const updatedUser = await prisma.user.update({
+        const updatedCar = await prisma.carBrand.update({
           where: {
             id: id as string,
           },
           data: {
-            ...req.body,
+            name: req.body.name,
           },
         });
-        const { password: removedPassword, ...userWithoutPassword } =
-          updatedUser;
-        res.status(200).json(userWithoutPassword);
+        res.status(200).json(updatedCar);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
       }
       break;
-
     case "DELETE":
       try {
-        const deletedUser = await prisma.user.delete({
+        const deletedBrand = await prisma.carBrand.delete({
           where: {
             id: id as string,
           },
         });
-        const { password: removedPassword, ...userWithoutPassword } =
-          deletedUser;
-        res.status(200).json(userWithoutPassword);
+        res.status(200).json(deletedBrand);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });

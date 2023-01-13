@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../prisma/client";
+import prisma from "../../../../prisma/client";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
@@ -7,8 +7,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const cars = await prisma.car.findMany();
-        res.status(200).json(cars);
+        const carCategory = await prisma.carCategory.findMany();
+        res.status(200).json(carCategory);
         break;
       } catch (error) {
         console.log(error);
@@ -18,18 +18,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case "POST":
       try {
-        const { carId } = req.body;
-        const newPicture = await prisma.carPicture.create({
+        const newCategoy = await prisma.carCategory.create({
           data: {
-            title: req.body.title,
-            url: req.body.url,
-            description: req.body.description,
-            car: {
-              connect: { id: carId },
-            },
+            name: req.body.name,
           },
         });
-        res.status(200).json(newPicture);
+        res.status(200).json(newCategoy);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
