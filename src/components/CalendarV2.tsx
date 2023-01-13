@@ -11,7 +11,13 @@ function CalendarV2() {
     console.log("newValue:", newValue);
     setValue(newValue);
   };
-  return <Datepicker value={value} onChange={handleValueChange} />;
+  return (
+    <Datepicker
+      value={value}
+      primaryColor={"lime"}
+      onChange={handleValueChange}
+    />
+  );
 }
 
 export default CalendarV2;

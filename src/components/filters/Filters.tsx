@@ -2,28 +2,49 @@ import { carCategory } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 import capitalize from "../../utils/capitalize";
+import InputDate from "./Dates";
 
 interface IProps {
   setFilterEnergy: (e: string) => void;
   setFilterSize: (e: string) => void;
+  setBeginDateFilter: (e: string) => void;
+  setEndDateFilter: (e: string) => void;
+  beginDateFilter: string;
+  endDateFilter: string;
   carCategories: carCategory[];
 }
 
-function Filters({ setFilterEnergy, setFilterSize, carCategories }: IProps) {
+function Filters({
+  setFilterEnergy,
+  setFilterSize,
+  carCategories,
+  setBeginDateFilter,
+  beginDateFilter,
+  setEndDateFilter,
+  endDateFilter,
+}: IProps) {
   return (
     <div className="w-[343px]">
-      <div className="flex items-center mb-8">
-        <div className="relative w-11 h-11">
-          <Image
-            src="/icons/filterIcons/Icon-calendar.svg"
-            alt="calendrier"
-            fill
-            className="object-fill"
-          />
+      <div className="mb-8">
+        <div className="flex items-center mb-1">
+          <div className="relative w-11 h-11">
+            <Image
+              src="/icons/filterIcons/Icon-calendar.svg"
+              alt="calendrier"
+              fill
+              className="object-fill"
+            />
+          </div>
+          <p className="font-Caveat font-regular text-2xl text-custom-white ml-3">
+            When ?
+          </p>
         </div>
-        <p className="font-Caveat font-regular text-2xl text-custom-white ml-3">
-          When ?
-        </p>
+        <InputDate
+          setBeginDateFilter={setBeginDateFilter}
+          beginDateFilter={beginDateFilter}
+          setEndDateFilter={setEndDateFilter}
+          endDateFilter={endDateFilter}
+        />
       </div>
 
       <div className="flex mb-8 max-w-full justify-between">

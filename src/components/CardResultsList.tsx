@@ -13,7 +13,7 @@ function CardResultsList({ cars }: IProps) {
         {cars.length} {cars.length > 1 ? "results" : "result"}
       </p>
 
-      {cars.length < 0 ? (
+      {cars.length > 0 ? (
         cars.map((car) => (
           <div className="flex-x-center w-full max-w-[343px] bg-custom-white">
             <CardResult key={car.id} car={car} />
