@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import ChooseOption from "../src/components/ChooseOption";
+import Calendar from "../src/components/Calendar";
 
 function Index() {
   const [openOption, setOpenOption] = useState(true);
